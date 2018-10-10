@@ -10,5 +10,5 @@ exports.success = ({ ctx, res = null, msg = '请求成功' }) => {
     data: res,
     msg,
   }
-  ctx.status = 200
+  ctx.status = ctx.status
 }
