@@ -7,15 +7,10 @@ describe('test/app/controller/home.test.js', () => {
   it('should assert', function* () {
     const pkg = require('../../../package.json');
     assert(app.config.keys.startsWith(pkg.name));
-
-    // const ctx = app.mockContext({});
-    // yield ctx.service.xx();
   });
 
-  it('should GET /', () => {
-    return app.httpRequest()
+  it('should GET /', () => app.httpRequest()
       .get('/')
-      .expect('hi, egg')
-      .expect(200);
-  });
+      .expect('overwatch-node-api.\n    https://github.com/zxj963577494/overwatch-node-api')
+      .expect(200));
 });
