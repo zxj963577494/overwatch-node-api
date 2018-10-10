@@ -18,12 +18,12 @@ module.exports = appInfo => {
     },
   }
 
-  // config.security = {
-  //   csrf: {
-  //     enable: false,
-  //   },
-  //   domainWhiteList: ['http://localhost:7001'],
-  // }
+  config.security = {
+    csrf: {
+      enable: false,
+    },
+    domainWhiteList: ['http://localhost:7001'],
+  }
 
   // config.bcrypt = {
   //   saltRounds: 10, // default 10
