@@ -18,7 +18,7 @@ module.exports = app => {
       rank: { type: Array },
       logo: { type: Array },
       icon: { type: String },
-      createAt: { type: Date },
+      createAt: { type: Date, default: Date.now },
       updateAt: { type: Date },
     },
     { collection: 'Team' }

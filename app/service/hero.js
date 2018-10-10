@@ -1,6 +1,6 @@
 const { Service } = require('egg')
 
-class HeroesService extends Service {
+class HeroService extends Service {
   // 获取所有英雄
   async findAll() {
     return this.ctx.model.Hero.find().exec()
@@ -25,4 +25,4 @@ class HeroesService extends Service {
   }
 }
 
-module.exports = HeroesService
+module.exports = HeroService

@@ -13,7 +13,7 @@ module.exports = app => {
       startDate: { type: Date },
       endDate: { type: Date },
       status: { type: String },
-      createAt: { type: Date },
+      createAt: { type: Date, default: Date.now },
       updateAt: { type: Date },
     },
     { collection: 'Sport' }

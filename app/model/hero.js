@@ -22,7 +22,7 @@ module.exports = app => {
       health: { type: String },
       armour: { type: String },
       shield: { type: String },
-      createAt: { type: Date },
+      createAt: { type: Date, default: Date.now },
       updateAt: { type: Date },
     },
     { collection: 'Hero' }

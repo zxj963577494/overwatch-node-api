@@ -11,7 +11,7 @@ module.exports = app => {
       givenName: { type: String },
       nationality: { type: String },
       headshot: { type: String },
-      createAt: { type: Date },
+      createAt: { type: Date, default: Date.now },
       updateAt: { type: Date },
     },
     { collection: 'Player' }

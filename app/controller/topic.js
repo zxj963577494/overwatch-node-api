@@ -2,7 +2,7 @@
 
 const Controller = require('egg').Controller
 
-class TopicsController extends Controller {
+class TopicController extends Controller {
   constructor(ctx) {
     super(ctx)
 
@@ -17,7 +17,7 @@ class TopicsController extends Controller {
   async show() {
     const { ctx } = this
 
-    ctx.body = await ctx.service.topics.show({
+    ctx.body = await ctx.service.topic.show({
       id: ctx.params.id,
       mdrender: ctx.query.mdrender !== 'false',
       accesstoken: ctx.query.accesstoken || '',
@@ -36,7 +36,7 @@ class TopicsController extends Controller {
       ctx.query
     )
 
-    ctx.body = await ctx.service.topics.list({
+    ctx.body = await ctx.service.topic.list({
       page: ctx.query.page,
       tab: ctx.query.tab,
       limit: ctx.query.limit,
@@ -48,7 +48,7 @@ class TopicsController extends Controller {
     const { ctx } = this
     ctx.validate(this.createRule)
 
-    const id = await ctx.service.topics.create(ctx.request.body)
+    const id = await ctx.service.topic.create(ctx.request.body)
     ctx.body = {
       topic_id: id,
     }
@@ -60,9 +60,9 @@ class TopicsController extends Controller {
     const id = ctx.params.id
 
     ctx.validate(this.createRule)
-    await ctx.service.topics.update(Object.assign({ id }, ctx.request.body))
+    await ctx.service.topic.update(Object.assign({ id }, ctx.request.body))
     ctx.status = 204
   }
 }
 
-module.exports = TopicsController
+module.exports = TopicController

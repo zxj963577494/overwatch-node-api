@@ -1,6 +1,6 @@
 const { Service } = require('egg')
 
-class TeamsService extends Service {
+class TeamService extends Service {
   // 获取所有选手
   async findAll() {
     return this.ctx.model.Team.find().exec()
@@ -25,4 +25,4 @@ class TeamsService extends Service {
   }
 }
 
-module.exports = TeamsService
+module.exports = TeamService

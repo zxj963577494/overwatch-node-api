@@ -1,7 +1,6 @@
 'use strict'
 
-module.exports = (option, app) => {
-  return async function(ctx, next) {
+module.exports = (option, app) => async function(ctx, next) {
     try {
       await next()
     } catch (err) {
@@ -19,4 +18,3 @@ module.exports = (option, app) => {
       ctx.status = status
     }
   }
-}
