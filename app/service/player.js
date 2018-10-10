@@ -1,27 +1,84 @@
 const { Service } = require('egg')
 
 class PlayerService extends Service {
-  // 获取所有选手
-  async findAll() {
-    return this.ctx.model.Player.find().exec()
-  }
+  async index(payload) {
+    const { currentPage, pageSize, isPaging, search } = payload
+    let res = []
+    let count = 0
+    const skip = (Number(currentPage) - 1) * Number(pageSize || 10)
 
-  async create(post) {
-    this.ctx.model.Player.create(post)
+    if (isPaging) {
+      if (search) {
+        res = await this.ctx.model.Player.find({ name: { $regex: search } })
+          .populate('heroes')
+          .skip(skip)
+          .limit(Number(pageSize))
+          .sort({ updateAt: -1 })
+          .exec()
+        count = res.length
+      } else {
+        res = await this.ctx.model.Player.find({})
+          .populate('heroes')
+          .skip(skip)
+          .limit(Number(pageSize))
+          .sort({ updateAt: -1 })
+          .exec()
+        count = await this.ctx.model.Player.count({}).exec()
+      }
+    } else if (search) {
+      res = await this.ctx.model.Player.find({ name: { $regex: search } })
+        .populate('heroes')
+        .sort({ updateAt: -1 })
+        .exec()
+      count = res.length
+    } else {
+      res = await this.ctx.model.Player.find({})
+        .populate('heroes')
+        .sort({ updateAt: -1 })
+        .exec()
+      count = await this.ctx.model.Player.count({}).exec()
+    }
+
+    const data = res.map((e, i) => {
+      const jsonObject = Object.assign({}, e._doc)
+      jsonObject.key = e._doc._id
+      return jsonObject
+    })
+
+    return {
+      count,
+      list: data,
+      pageSize: Number(pageSize),
+      currentPage: Number(currentPage),
+    }
   }
 
   async findById(id) {
-    return this.ctx.model.Player.findById(id).exec()
+    return this.ctx.model.Player.findById(id).populate('heroes')
   }
 
-  async findAndUpdate(id, post) {
-    this.ctx.model.Player.findOneAndUpdate({ _id: id }, post).exec()
+  async create(payload) {
+    console.log(payload)
+    return this.ctx.model.Player.create(payload).then(data => ({
+      id: data._id,
+    }))
   }
 
-  async findAndRemove(id) {
-    this.ctx.model.Player.remove({ _id: id }, err => {
-      console.log(err)
-    })
+  async update(payload) {
+    const { ctx, service } = this
+    const Player = await service.player.findById(payload.id)
+    if (!Player) {
+      ctx.throw(404, 'Player not found')
+    }
+    return ctx.model.Player.findByIdAndUpdate(payload.id, payload.params).then(data => ({
+      id: data._id,
+    }))
+  }
+
+  async remove(id) {
+    return this.ctx.model.Player.findByIdAndRemove(id).then(data => ({
+      id: data._id,
+    }))
   }
 }
 

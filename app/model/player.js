@@ -11,6 +11,8 @@ module.exports = app => {
       givenName: { type: String },
       nationality: { type: String },
       headshot: { type: String },
+      accounts: { type: Array },
+      heroes: [{ type: Schema.Types.ObjectId, ref: 'Hero' }],
       createAt: { type: Date, default: Date.now },
       updateAt: { type: Date },
     },
