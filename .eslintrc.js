@@ -7,5 +7,6 @@ module.exports = {
   },
   rules: {
     strict: 0,
+    'no-underscore-dangle': 0,
   },
 }
