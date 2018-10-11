@@ -56,7 +56,7 @@ describe('test/controller/player.test.js', () => {
         .put(`/api/v1/players/${model._id}`)
         .set('Content-Type', 'application/json')
         .send({ name: '测试选手1' })
-        .expect(204)
+        .expect(200)
         .end(() => {
           app.model.Player.deleteOne({ _id: model._id }).exec()
           done()
@@ -70,7 +70,7 @@ describe('test/controller/player.test.js', () => {
       app
         .httpRequest()
         .del(`/api/v1/players/${model._id}`)
-        .expect(204, done)
+        .expect(200, done)
     })
   })
 })
