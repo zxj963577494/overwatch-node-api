@@ -66,13 +66,15 @@ class HeroService extends Service {
       ctx.throw(404, 'Hero not found')
     }
     return ctx.model.Hero.updateOne({ _id: payload.id }, payload.params).then(data => ({
+      ...data,
       id: data._id,
     }))
   }
 
   async remove(id) {
     return this.ctx.model.Hero.deleteOne({ _id: id }).then(data => ({
-      id: data._id,
+      ...data,
+      id,
     }))
   }
 }

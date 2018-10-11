@@ -70,13 +70,15 @@ class PlayerService extends Service {
       ctx.throw(404, 'Player not found')
     }
     return ctx.model.Player.updateOne({ _id: payload.id }, payload.params).then(data => ({
-      id: data._id,
+      ...data,
+      id: payload.id,
     }))
   }
 
   async remove(id) {
     return this.ctx.model.Player.deleteOne({ _id: id }).then(data => ({
-      id: data._id,
+      ...data,
+      id,
     }))
   }
 }
