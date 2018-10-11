@@ -50,7 +50,6 @@ class PlayerController extends Controller {
     const { id } = ctx.params
     ctx.validate(this.playerCreateRule)
     const res = await service.player.update({ id, params: ctx.request.body })
-    ctx.status = 204
     ctx.helper.success({ ctx, res })
   }
 
@@ -59,7 +58,6 @@ class PlayerController extends Controller {
     const { ctx, service } = this
     const { id } = ctx.params
     const res = await service.player.remove(id)
-    ctx.status = 204
     ctx.helper.success({ ctx, res })
   }
 }
