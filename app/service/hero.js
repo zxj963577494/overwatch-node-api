@@ -21,7 +21,7 @@ class HeroService extends Service {
           .limit(Number(pageSize))
           .sort({ updateAt: -1 })
           .exec()
-        count = await this.ctx.model.Hero.count({}).exec()
+        count = await this.ctx.model.Hero.countDocuments({}).exec()
       }
     } else if (search) {
       res = await this.ctx.model.Hero.find({ name: { $regex: search } })
@@ -32,7 +32,7 @@ class HeroService extends Service {
       res = await this.ctx.model.Hero.find({})
         .sort({ updateAt: -1 })
         .exec()
-      count = await this.ctx.model.Hero.count({}).exec()
+      count = await this.ctx.model.Hero.countDocuments({}).exec()
     }
 
     const data = res.map((e, i) => {
@@ -50,7 +50,7 @@ class HeroService extends Service {
   }
 
   async findById(id) {
-    return this.ctx.model.Hero.findById(id).exec()
+    return this.ctx.model.Hero.findOne({ _id: id }).exec()
   }
 
   async create(payload) {
@@ -65,13 +65,13 @@ class HeroService extends Service {
     if (!Hero) {
       ctx.throw(404, 'Hero not found')
     }
-    return ctx.model.Hero.findByIdAndUpdate(payload.id, payload.params).then(data => ({
+    return ctx.model.Hero.updateOne({ _id: payload.id }, payload.params).then(data => ({
       id: data._id,
     }))
   }
 
   async remove(id) {
-    return this.ctx.model.Hero.findByIdAndRemove(id).then(data => ({
+    return this.ctx.model.Hero.deleteOne({ _id: id }).then(data => ({
       id: data._id,
     }))
   }

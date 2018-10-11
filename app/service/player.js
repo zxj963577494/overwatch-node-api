@@ -23,7 +23,7 @@ class PlayerService extends Service {
           .limit(Number(pageSize))
           .sort({ updateAt: -1 })
           .exec()
-        count = await this.ctx.model.Player.count({}).exec()
+        count = await this.ctx.model.Player.countDocuments({}).exec()
       }
     } else if (search) {
       res = await this.ctx.model.Player.find({ name: { $regex: search } })
@@ -36,7 +36,7 @@ class PlayerService extends Service {
         .populate('heroes')
         .sort({ updateAt: -1 })
         .exec()
-      count = await this.ctx.model.Player.count({}).exec()
+      count = await this.ctx.model.Player.countDocuments({}).exec()
     }
 
     const data = res.map((e, i) => {
@@ -54,11 +54,10 @@ class PlayerService extends Service {
   }
 
   async findById(id) {
-    return this.ctx.model.Player.findById(id).populate('heroes')
+    return this.ctx.model.Player.findOne({ _id: id }).populate('heroes')
   }
 
   async create(payload) {
-    console.log(payload)
     return this.ctx.model.Player.create(payload).then(data => ({
       id: data._id,
     }))
@@ -70,13 +69,13 @@ class PlayerService extends Service {
     if (!Player) {
       ctx.throw(404, 'Player not found')
     }
-    return ctx.model.Player.findByIdAndUpdate(payload.id, payload.params).then(data => ({
+    return ctx.model.Player.updateOne({ _id: payload.id }, payload.params).then(data => ({
       id: data._id,
     }))
   }
 
   async remove(id) {
-    return this.ctx.model.Player.findByIdAndRemove(id).then(data => ({
+    return this.ctx.model.Player.deleteOne({ _id: id }).then(data => ({
       id: data._id,
     }))
   }

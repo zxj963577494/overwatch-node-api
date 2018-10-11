@@ -12,6 +12,8 @@ module.exports = appInfo => {
   config.mongoose = {
     url: 'mongodb://127.0.0.1:27017/overwatch',
     options: {
+      useNewUrlParser: true,
+      useCreateIndex: true,
       autoReconnect: true,
       reconnectTries: Number.MAX_VALUE,
       bufferMaxEntries: 0,
