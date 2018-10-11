@@ -25,7 +25,7 @@ describe('test/controller/hero.test.js', () => {
         .get(`/api/v1/heroes/${model._id}`)
         .expect(200)
         .end(() => {
-          app.model.Hero.remove({ _id: model._id }).exec()
+          app.model.Hero.deleteOne({ _id: model._id }).exec()
           done()
         })
     })
@@ -35,29 +35,15 @@ describe('test/controller/hero.test.js', () => {
     const params = {
       name: '英雄名称',
       real_name: '英雄真实姓名',
-      role: 'support',
-      description: '英雄描述',
-      base_of_operations: '基地',
-      age: '年龄',
-      difficulty: '难度星级',
-      fullshot: 'http://overwatch.nos.netease.com/1/assets/images/hero/brigitte/full-portrait.png',
-      extra: [],
-      abilities: [],
-      avatar: 'http://overwatch.nos.netease.com/1/assets/images/hero/brigitte/icon-portrait.png',
-      profession: '职业',
-      height: '200',
-      health: '身高',
-      armour: '0',
-      shield: '0',
     }
     app
       .httpRequest()
       .post('/api/v1/heroes')
       .set('Content-Type', 'application/json')
-      .send(JSON.stringify(params))
+      .send(params)
       .expect(201)
       .end((err, res) => {
-        app.model.Hero.remove({ _id: res.body.data.id }).exec()
+        app.model.Hero.deleteOne({ _id: res.body.data.id }).exec()
         done()
       })
   })
@@ -72,7 +58,7 @@ describe('test/controller/hero.test.js', () => {
         .send({ name: '测试英雄1' })
         .expect(204)
         .end(() => {
-          app.model.Hero.remove({ _id: model._id }).exec()
+          app.model.Hero.deleteOne({ _id: model._id }).exec()
           done()
         })
     })
