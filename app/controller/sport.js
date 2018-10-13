@@ -13,9 +13,9 @@ class SportController extends Controller {
       description: { type: 'string', required: false },
       logo: { type: 'string', required: false },
       pic: { type: 'string', required: false },
-      startDate: { type: 'date', required: false },
-      endDate: { type: 'date', required: false },
-      status: { type: 'array', required: false },
+      startDate: { type: 'dateTime', required: false },
+      endDate: { type: 'dateTime', required: false },
+      status: { type: 'string', required: false },
     }
   }
 
