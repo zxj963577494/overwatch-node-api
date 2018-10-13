@@ -11,12 +11,11 @@ module.exports = app => {
       givenName: { type: String },
       nationality: { type: String },
       headshot: { type: String },
+      birth: { type: Date },
       accounts: { type: Array },
       heroes: [{ type: Schema.Types.ObjectId, ref: 'Hero' }],
-      createAt: { type: Date, default: Date.now },
-      updateAt: { type: Date },
     },
-    { collection: 'Player' }
+    { collection: 'Player', timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' } }
   )
 
   return mongoose.model('Player', PlayerSchema)

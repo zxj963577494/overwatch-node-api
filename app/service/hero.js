@@ -2,12 +2,11 @@ const { Service } = require('egg')
 
 class HeroService extends Service {
   async index(payload) {
-    const { currentPage = 1, pageSize = 10, isPaging = true, search } = payload
+    const { currentPage = 1, pageSize = 10, isPaging = 1, search } = payload
     let res = []
     let count = 0
     const skip = (Number(currentPage) - 1) * Number(pageSize || 10)
-
-    if (isPaging) {
+    if (parseInt(isPaging, 10)) {
       if (search) {
         res = await this.ctx.model.Hero.find({ name: { $regex: search } })
           .skip(skip)

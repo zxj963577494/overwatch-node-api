@@ -13,10 +13,8 @@ module.exports = app => {
       startDate: { type: Date },
       endDate: { type: Date },
       status: { type: String },
-      createAt: { type: Date, default: Date.now },
-      updateAt: { type: Date },
     },
-    { collection: 'Sport' }
+    { collection: 'Sport', timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' } }
   )
 
   return mongoose.model('SportSchema', SportSchema)

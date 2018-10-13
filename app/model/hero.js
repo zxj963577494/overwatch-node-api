@@ -22,10 +22,8 @@ module.exports = app => {
       health: { type: String },
       armour: { type: String },
       shield: { type: String },
-      createAt: { type: Date, default: Date.now },
-      updateAt: { type: Date },
     },
-    { collection: 'Hero' }
+    { collection: 'Hero', timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' } }
   )
 
   return mongoose.model('Hero', HeroSchema)

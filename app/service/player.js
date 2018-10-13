@@ -2,7 +2,7 @@ const { Service } = require('egg')
 
 class PlayerService extends Service {
   async index(payload) {
-    const { currentPage, pageSize, isPaging, search } = payload
+    const { currentPage = 1, pageSize = 10, isPaging = true, search } = payload
     let res = []
     let count = 0
     const skip = (Number(currentPage) - 1) * Number(pageSize || 10)
@@ -41,15 +41,18 @@ class PlayerService extends Service {
 
     const data = res.map((e, i) => {
       const jsonObject = Object.assign({}, e._doc)
+      jsonObject.id = e._doc._id
       jsonObject.key = e._doc._id
       return jsonObject
     })
 
     return {
-      count,
       list: data,
-      pageSize: Number(pageSize),
-      currentPage: Number(currentPage),
+      pagination: {
+        total: count,
+        pageSize: Number(pageSize),
+        current: Number(currentPage),
+      },
     }
   }
 

@@ -27,6 +27,10 @@ module.exports = appInfo => {
     domainWhiteList: ['http://localhost:7001'],
   }
 
+  config.validate = {
+    convert: true,
+  }
+
   // config.bcrypt = {
   //   saltRounds: 10, // default 10
   // }

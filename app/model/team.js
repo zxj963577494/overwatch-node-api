@@ -20,10 +20,8 @@ module.exports = app => {
       icon: { type: String },
       accounts: { type: Array },
       players: [{ type: Schema.Types.ObjectId, ref: 'Player' }],
-      createAt: { type: Date, default: Date.now },
-      updateAt: { type: Date },
     },
-    { collection: 'Team' }
+    { collection: 'Team', timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' } }
   )
 
   return mongoose.model('TeamSchema', TeamSchema)

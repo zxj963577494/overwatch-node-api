@@ -6,6 +6,13 @@ class HeroController extends Controller {
   constructor(ctx) {
     super(ctx)
 
+    this.heroGetRule = {
+      currentPage: { type: 'int', required: false },
+      pageSize: { type: 'int', required: false },
+      isPaging: { type: 'int', required: false },
+      search: { type: 'string', required: false },
+    }
+
     this.heroCreateRule = {
       name: { type: 'string', required: true },
       real_name: { type: 'string', required: false },
@@ -28,6 +35,7 @@ class HeroController extends Controller {
 
   async index() {
     const { ctx } = this
+    ctx.validate(this.heroGetRule)
     const payload = ctx.query
     const res = await ctx.service.hero.index(payload)
     ctx.helper.success({ ctx, res })
