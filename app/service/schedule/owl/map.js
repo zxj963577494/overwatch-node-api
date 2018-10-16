@@ -2,19 +2,14 @@ const { Service } = require('egg')
 
 class MapService extends Service {
   async list() {
-    const maps = await this.ctx.model.Map.find()
-      .limit(1)
-      .exec()
-    if (maps.length === 0) {
-      const url = 'https://api.overwatchleague.cn/maps?locale=zh-cn'
-      const result = await this.ctx.curl(url, {
-        followRedirect: true,
-        dataType: 'json',
-      })
-      if (result.status === 200) {
-        return result.data
-      }
-      return []
+    await this.ctx.model.Map.deleteMany()
+    const url = 'https://api.overwatchleague.cn/maps?locale=zh-cn'
+    const result = await this.ctx.curl(url, {
+      followRedirect: true,
+      dataType: 'json',
+    })
+    if (result.status === 200) {
+      return result.data
     }
     return []
   }

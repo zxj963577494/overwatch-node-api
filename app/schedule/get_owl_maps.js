@@ -1,6 +1,6 @@
 const { Subscription } = require('egg')
 
-class UpdateCache extends Subscription {
+class GetOWLMaps extends Subscription {
   // 通过 schedule 属性来设置定时任务的执行间隔等配置
   static get schedule() {
     return {
@@ -21,4 +21,4 @@ class UpdateCache extends Subscription {
   }
 }
 
-module.exports = UpdateCache
+module.exports = GetOWLMaps
