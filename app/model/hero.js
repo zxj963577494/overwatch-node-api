@@ -5,6 +5,7 @@ module.exports = app => {
   const HeroSchema = new Schema(
     {
       name: { type: String },
+      enname:  { type: String },
       real_name: { type: String },
       role: { type: String },
       description: { type: String },

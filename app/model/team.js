@@ -4,6 +4,8 @@ module.exports = app => {
 
   const TeamSchema = new Schema(
     {
+      teamId: { type: Number },
+      handle: { type: String },
       name: { type: String },
       abbreviatedName: { type: String },
       homeLocation: { type: String },
@@ -18,8 +20,11 @@ module.exports = app => {
       rank: { type: String },
       logo: { type: String },
       icon: { type: String },
+      secondaryPhoto: { type: String },
+      owl_division: { type: String },
       accounts: { type: Array },
-      players: [{ type: Schema.Types.ObjectId, ref: 'Player' }],
+      teamWebsite: { type: String },
+      attributes: { type: Object },
     },
     { collection: 'Team', timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' } }
   )

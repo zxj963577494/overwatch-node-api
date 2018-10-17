@@ -13,6 +13,11 @@ module.exports = app => {
       startDate: { type: Date },
       endDate: { type: Date },
       status: { type: String },
+      levels: { type: String },
+      type: { type: String },
+      teamCount: { type: Number },
+      country: { type: String },
+      stages: [{ type: Schema.Types.ObjectId, ref: 'Stage' }],
     },
     { collection: 'Sport', timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' } }
   )

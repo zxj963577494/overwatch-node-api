@@ -4,6 +4,8 @@ module.exports = app => {
 
   const PlayerSchema = new Schema(
     {
+      playerId: { type: Number },
+      teamId: { type: Number },
       handle: { type: String },
       name: { type: String },
       homeLocation: { type: String },
@@ -13,7 +15,8 @@ module.exports = app => {
       headshot: { type: String },
       birth: { type: Date },
       accounts: { type: Array },
-      heroes: [{ type: Schema.Types.ObjectId, ref: 'Hero' }],
+      attributes: { type: Array },
+      erased: { type: Boolean },
     },
     { collection: 'Player', timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' } }
   )
