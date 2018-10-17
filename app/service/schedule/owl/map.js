@@ -1,4 +1,5 @@
 const { Service } = require('egg')
+const async = require('async')
 
 class MapService extends Service {
   async list() {
@@ -7,6 +8,7 @@ class MapService extends Service {
     const result = await this.ctx.curl(url, {
       followRedirect: true,
       dataType: 'json',
+      timeout: 30000,
     })
     if (result.status === 200) {
       return result.data
@@ -15,6 +17,11 @@ class MapService extends Service {
   }
 
   async saveDB(payload) {
+    const mapsdb = await this.ctx.model.Map.find()
+
+    const insertMaps = []
+    const updateMaps = []
+
     const result = payload.map(x => {
       if (x.guid != '0x08000000000006C7') {
         return {
@@ -27,7 +34,21 @@ class MapService extends Service {
         }
       }
     })
-    return this.ctx.model.Map.insertMany(result)
+
+    result.forEach(x => {
+      const ss = mapsdb.filter(y => y.name === x.name)
+      if (ss.length > 0) {
+        updateMaps.push(x)
+      } else {
+        insertMaps.push(x)
+      }
+    })
+
+    this.ctx.model.Map.insertMany(insertMaps)
+
+    async.eachSeries(updateMaps, (x, done) => {
+      this.ctx.model.Team.updateOne({ teamId: x.teamId }, x, done)
+    })
   }
 }
 
