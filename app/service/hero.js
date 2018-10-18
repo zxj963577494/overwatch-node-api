@@ -8,7 +8,9 @@ class HeroService extends Service {
     const skip = (Number(currentPage) - 1) * Number(pageSize || 10)
     if (parseInt(isPaging, 10)) {
       if (search) {
-        res = await this.ctx.model.Hero.find({ name: { $regex: search } })
+        res = await this.ctx.model.Hero.find({
+          $or: [{ name: { $regex: search } }, { cnname: { $regex: search } }],
+        })
           .skip(skip)
           .limit(Number(pageSize))
           .sort({ updateAt: -1 })
