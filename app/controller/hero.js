@@ -15,6 +15,7 @@ class HeroController extends Controller {
 
     this.heroCreateRule = {
       name: { type: 'string', required: true },
+      cnname: { type: 'string', required: false },
       real_name: { type: 'string', required: false },
       role: { type: 'string', required: false },
       description: { type: 'string', required: false },
