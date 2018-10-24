@@ -24,6 +24,7 @@ module.exports = app => {
       health: { type: String },
       armour: { type: String },
       shield: { type: String },
+      capabilities: { type: Array },
     },
     { collection: 'Hero', timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' } }
   )
