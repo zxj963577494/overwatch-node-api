@@ -19,6 +19,8 @@ class HeroController extends Controller {
       real_name: { type: 'string', required: false },
       role: { type: 'string', required: false },
       description: { type: 'string', required: false },
+      remark: { type: 'string', required: false },
+      creed: { type: 'string', required: false },
       base_of_operations: { type: 'string', required: false },
       age: { type: 'string', required: false },
       difficulty: { type: 'string', required: false },

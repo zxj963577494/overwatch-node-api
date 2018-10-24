@@ -10,6 +10,7 @@ module.exports = app => {
       role: { type: String },
       description: { type: String },
       remark: { type: String },
+      creed: { type: String },
       base_of_operations: { type: String },
       age: { type: String },
       difficulty: { type: String },
